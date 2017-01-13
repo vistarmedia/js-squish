@@ -15,26 +15,24 @@ js_library(
 
 js_binary(
   name = 'require_once',
-  srcs = ['require_once.js'],
+  src  = 'require_once.js',
   deps = [':simple_import'],
-  main = 'tool/js-squish/example/require_once'
 )
 
 js_squish(
-  name      = 'once.squished',
-  js_binary = ':require_once',
+  name = 'once.squished',
+  src  = ':require_once',
 )
 
 js_binary(
   name = 'require_twice',
-  srcs = ['require_twice.js'],
+  src  = 'require_twice.js',
   deps = [':simple_import'],
-  main = 'tool/js-squish/example/require_twice'
 )
 
 js_squish(
-  name      = 'twice.squished',
-  js_binary = ':require_twice',
+  name = 'twice.squished',
+  src  = ':require_twice',
 )
 
 sh_test(

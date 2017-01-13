@@ -1,13 +1,10 @@
-load('@io_bazel_rules_js//js/private:rules.bzl', 'js_bin_providers')
-
-
 def _js_squish_impl(ctx):
-  bin_target = ctx.attr.js_binary
+  bin_target = ctx.attr.src
 
   arguments = [
     '-jstar',       bin_target.js_tar.path,
     '-output',      ctx.outputs.out.path,
-    '-entrypoint',  bin_target.main,
+    '-entrypoint',  bin_target.main.path,
   ]
 
   ctx.action(
@@ -27,7 +24,7 @@ def _js_squish_impl(ctx):
 js_squish = rule(
   _js_squish_impl,
   attrs = {
-    'js_binary':  attr.label(providers=js_bin_providers),
+    'src':   attr.label(providers=['js_tar', 'main']),
 
     '_js_squish': attr.label(
       default     = Label('//tool/js-squish'),
