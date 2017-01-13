@@ -11,7 +11,7 @@ import (
 
 var (
 	entryPre = template.Must(
-		template.New("entry").Parse("{{.Id}}: [function(require, module) {\n"),
+		template.New("entry").Parse("{{.Id}}: [function(require,module,exports) {\n"),
 	)
 	entryPost = template.Must(
 		template.New("entry").Parse("\n}, {{.Imports}}]"),

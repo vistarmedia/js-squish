@@ -1,3 +1,5 @@
+var process = {env: {}};
+
 (function outer (modules, cache, entry) {
   // Save the require from previous bundle to this closure if any
   var previousRequire = typeof require === "function" && require;

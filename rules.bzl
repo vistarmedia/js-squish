@@ -15,6 +15,7 @@ def _js_squish_impl(ctx):
     outputs    = [ctx.outputs.out],
     executable = ctx.executable._js_squish,
     arguments  = arguments,
+    mnemonic   = 'JsSquish',
   )
 
   return struct(
