@@ -33,14 +33,14 @@ use the `js_squish` rule.
 
     js_binary(
       name = 'my-prog',
-      srcs = ['cool_proj.js'],
+      src  = 'cool_proj.js',
       deps = ['@react//:lib'],
       main = 'my/cool/prod',
     )
 
     js_squish(
-      name      = 'my-prog.dist',
-      js_binary = ':my-prog',
+      name = 'my-prog.dist',
+      src  = ':my-prog',
     )
     ```
 

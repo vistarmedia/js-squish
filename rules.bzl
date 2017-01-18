@@ -4,7 +4,7 @@ def _js_squish_impl(ctx):
   arguments = [
     '-jstar',       bin_target.js_tar.path,
     '-output',      ctx.outputs.out.path,
-    '-entrypoint',  bin_target.main.path,
+    '-entrypoint',  bin_target.main.short_path,
   ]
 
   ctx.action(
