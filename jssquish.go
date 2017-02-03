@@ -4,7 +4,11 @@ import (
 	"io"
 )
 
-func Main(repo Repository, entrypoint string, out io.Writer) error {
+func Main(
+	repo Repository,
+	entrypoint string,
+	environment *string,
+	out io.Writer) error {
 	var (
 		resolver = NewResolver(repo)
 		writer   = NewWriter(out)
@@ -17,5 +21,9 @@ func Main(repo Repository, entrypoint string, out io.Writer) error {
 		entries:  make(map[string]*srcEntry),
 	}
 
-	return fs.Create(entrypoint)
+	if environment == nil {
+		return fs.Create(entrypoint)
+	} else {
+		return fs.CreateWithNodeEnv(entrypoint, environment)
+	}
 }

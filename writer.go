@@ -19,6 +19,10 @@ var (
 
 	preamble = file.MustAsset("tool/js-squish/preamble.js")
 
+	preambleTemplate = template.Must(
+		template.New("entry").Parse(string(preamble)),
+	)
+
 	postamble = `},{}, [0]);`
 )
 
@@ -32,9 +36,24 @@ func NewWriter(w io.Writer) *Writer {
 }
 
 func (w *Writer) Open() error {
+	return w.OpenWithEnvironment(nil)
+}
+
+func (w *Writer) OpenWithEnvironment(environment *string) error {
 	// Write the preamble function, and start to invoke the function with the
 	// first argument as an object of modules
-	if _, err := w.w.Write(preamble); err != nil {
+	var env string
+	if environment != nil {
+		env = "'" + *environment + "'"
+	} else {
+		env = "undefined"
+	}
+
+	entry := struct {
+		Environment string
+	}{env}
+
+	if err := preambleTemplate.Execute(w.w, entry); err != nil {
 		return err
 	}
 	_, err := fmt.Fprint(w.w, "({")

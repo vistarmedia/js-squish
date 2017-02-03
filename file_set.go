@@ -26,7 +26,11 @@ type FileSet struct {
 // algorithm, so paths, directories with an index, and directories with a
 // package.json are all valid.
 func (fs *FileSet) Create(impt string) error {
-	if err := fs.writer.Open(); err != nil {
+	return fs.CreateWithNodeEnv(impt, nil)
+}
+
+func (fs *FileSet) CreateWithNodeEnv(impt string, environment *string) error {
+	if err := fs.writer.OpenWithEnvironment(environment); err != nil {
 		return err
 	}
 

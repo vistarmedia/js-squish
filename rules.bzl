@@ -7,6 +7,9 @@ def _js_squish_impl(ctx):
     '-entrypoint',  bin_target.main.short_path,
   ]
 
+  if ctx.attr.env:
+    arguments += ['-environment', ctx.attr.env]
+
   ctx.action(
     inputs     = [ctx.executable._js_squish, bin_target.js_tar],
     outputs    = [ctx.outputs.out],
@@ -24,6 +27,7 @@ def _js_squish_impl(ctx):
 js_squish = rule(
   _js_squish_impl,
   attrs = {
+    'env':   attr.string(values=['', 'development', 'production']),
     'src':   attr.label(providers=['js_tar', 'main']),
 
     '_js_squish': attr.label(

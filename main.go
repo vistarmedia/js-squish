@@ -9,15 +9,17 @@ import (
 )
 
 var (
-	jsTarName  string
-	entrypoint string
-	outputName string
+	jsTarName   string
+	entrypoint  string
+	outputName  string
+	environment string
 )
 
 func init() {
 	flag.StringVar(&jsTarName, "jstar", "", "Path to JSTar")
 	flag.StringVar(&entrypoint, "entrypoint", "index.js", "Entrypoint")
 	flag.StringVar(&outputName, "output", "", "Squished JS Output")
+	flag.StringVar(&environment, "environment", "", "NODE_ENV")
 }
 
 func main() {
@@ -26,6 +28,10 @@ func main() {
 	if jsTarName == "" || entrypoint == "" || outputName == "" {
 		flag.PrintDefaults()
 		os.Exit(2)
+	}
+	var env *string
+	if environment != "" {
+		env = &environment
 	}
 
 	repoFile, err := os.Open(jsTarName)
@@ -48,7 +54,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := jssquish.Main(repo, entrypoint, out); err != nil {
+	if err := jssquish.Main(repo, entrypoint, env, out); err != nil {
 		log.Fatal(err)
 	}
 }

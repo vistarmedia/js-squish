@@ -1,4 +1,4 @@
-var process = {env: {}};
+var process = {env: {NODE_ENV: {{.Environment}}}};
 
 (function outer (modules, cache, entry) {
   // Save the require from previous bundle to this closure if any
