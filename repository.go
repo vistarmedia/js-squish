@@ -167,7 +167,7 @@ const stopIteration = tarFlowControl(0)
 func iterateTar(f *os.File, each func(*tar.Header, os.FileInfo,
 	io.Reader) error) error {
 
-	if _, err := f.Seek(0, 0); err != nil {
+	if _, err := f.Seek(0, io.SeekStart); err != nil {
 		return err
 	}
 	gzf, err := gzip.NewReader(f)
