@@ -28,8 +28,8 @@ go_library(
   deps = [
     ':file',
 
-    '@otto//ast:go_default_library',
-    '@otto//parser:go_default_library',
+    '@com_github_robertkrimen_otto//ast:go_default_library',
+    '@com_github_robertkrimen_otto//parser:go_default_library',
   ],
 )
 
@@ -43,8 +43,8 @@ go_test(
     'test.go',
   ],
   deps = [
-    '//vendor/github.com/onsi:ginkgo',
-    '//vendor/github.com/onsi:gomega',
+    '@com_github_onsi_ginkgo//:go_default_library',
+    '@com_github_onsi_gomega//:go_default_library',
   ],
   library = 'go_default_library',
 )
